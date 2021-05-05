@@ -18,3 +18,4 @@
 
 git clone https://github.com/ITdesk01/jd_openwrt_script.git package/jd_openwrt_script
 git clone https://github.com/garypang13/luci-app-bypass package/luci-app-bypass
+git clone https://github.com/jerrykuku/luci-app-ttnode.git  package/luci-app-ttnode
