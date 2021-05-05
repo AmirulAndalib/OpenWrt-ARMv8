@@ -15,3 +15,6 @@
 
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
+
+git clone https://github.com/ITdesk01/jd_openwrt_script.git package/jd_openwrt_script
+git clone https://github.com/garypang13/luci-app-bypass package/luci-app-bypass
