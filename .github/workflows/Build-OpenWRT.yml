@@ -328,7 +328,7 @@ jobs:
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
         cd ./package
         tar -zcvf IPK.tar.gz *
-        mv -f IPK.tar.gz ../firmware/
+#        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
       uses: actions/upload-artifact@v4
@@ -346,6 +346,7 @@ jobs:
       id: organize
       run: |
         cd openwrt/bin/firmware/
+        mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
 
@@ -508,7 +509,7 @@ jobs:
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
         cd ./package
         tar -zcvf IPK.tar.gz *
-        mv -f IPK.tar.gz ../firmware/
+#        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
       uses: actions/upload-artifact@v4
@@ -526,6 +527,7 @@ jobs:
       id: organize
       run: |
         cd openwrt/bin/firmware/
+        mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
 
@@ -689,7 +691,7 @@ jobs:
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
         cd ./package
         tar -zcvf IPK.tar.gz *
-        mv -f IPK.tar.gz ../firmware/
+#        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
       uses: actions/upload-artifact@v4
@@ -707,6 +709,7 @@ jobs:
       id: organize
       run: |
         cd openwrt/bin/firmware/
+        mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
 
