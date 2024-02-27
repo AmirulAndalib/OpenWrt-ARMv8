@@ -133,13 +133,13 @@ jobs:
         mv -f IPK.tar.gz ../
 
     - name: Deliver package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ARMv8_IPK ${{ env.FILE_DATE }}
         path: ./openwrt/bin/package/
 
     - name: Deliver firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ARMv8_firmware ${{ env.FILE_DATE }}
         path: ./openwrt/bin/firmware/
@@ -331,13 +331,13 @@ jobs:
         mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: x86_IPK ${{ env.FILE_DATE }}
         path: ./openwrt/bin/package/
 
     - name: Deliver firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: x86_firmware ${{ env.FILE_DATE }}
         path: ./openwrt/bin/firmware/
@@ -511,13 +511,13 @@ jobs:
         mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Docker_IPK ${{ env.FILE_DATE }}
         path: ./openwrt/bin/package/
 
     - name: Deliver firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Docker_firmware ${{ env.FILE_DATE }}
         path: ./openwrt/bin/firmware/
@@ -572,7 +572,7 @@ jobs:
 
 
   x86-original:
-    name: x86-original
+    name: x86-official
     runs-on: ubuntu-22.04
     env:
       REPO_URL: https://github.com/openwrt/openwrt
@@ -692,13 +692,13 @@ jobs:
         mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Original_IPK ${{ env.FILE_DATE }}
         path: ./openwrt/bin/package/
 
     - name: Deliver firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Original_firmware ${{ env.FILE_DATE }}
         path: ./openwrt/bin/firmware/
@@ -729,7 +729,7 @@ jobs:
       run: |
         MSG="
         编译时间：${{ env.DATE }}
-        x86 original编译完成
+        x86 official编译完成
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${MSG}"
 
