@@ -326,8 +326,7 @@ jobs:
         rm -rf $(find ../bin/targets/ -name "packages" -o -name "*.buildinfo" -o -name "sha256sums" -o -name "*.manifest")
         cp -rf $(find ../bin/targets/ -type f -name "*combined*") ./firmware/
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
-        cd ./package
-        tar -zcvf IPK.tar.gz *
+        echo $PWD
 #        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
@@ -345,7 +344,11 @@ jobs:
     - name: Organize files
       id: organize
       run: |
-        cd openwrt/bin/firmware/
+        cd openwrt/bin/package/
+        tar -zcvf IPK.tar.gz *
+        mv -f IPK.tar.gz ../firmware/
+        cd ../firmware/
+        rm -rf packages
         mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
@@ -507,8 +510,6 @@ jobs:
         rm -rf $(find ../bin/targets/ -name "packages" -o -name "*.buildinfo" -o -name "sha256sums" -o -name "*.manifest")
         cp -rf $(find ../bin/targets/ -type f -name "*combined*") ./firmware/
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
-        cd ./package
-        tar -zcvf IPK.tar.gz *
 #        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
@@ -526,7 +527,11 @@ jobs:
     - name: Organize files
       id: organize
       run: |
-        cd openwrt/bin/firmware/
+        cd openwrt/bin/package/
+        tar -zcvf IPK.tar.gz *
+        mv -f IPK.tar.gz ../firmware/
+        cd ../firmware/
+        rm -rf packages
         mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
@@ -600,7 +605,7 @@ jobs:
         cat /proc/cpuinfo | grep "cpu cores" | uniq >> CPU
         sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
         CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
-        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=x86-original 正在使用 [${CPUNAME} CPU]  [${CPUCORES} 核心]  [openwrt] 源码 编译固件中,请耐心等待..." "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${MSG}"
+        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=x86-official 正在使用 [${CPUNAME} CPU]  [${CPUCORES} 核心]  [openwrt] 源码 编译固件中,请耐心等待..." "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${MSG}"
 
     - name: Initialization environment
       env:
@@ -689,26 +694,28 @@ jobs:
         rm -rf $(find ../bin/targets/ -name "packages" -o -name "*.buildinfo" -o -name "sha256sums" -o -name "*.manifest" -o -name "profiles.json")
         cp -rf $(find ../bin/targets/ -type f -name "*combined*") ./firmware/
         cp -rf $(find ../bin/packages/ -type f -name "*.ipk") ./package/
-        cd ./package
-        tar -zcvf IPK.tar.gz *
 #        mv -f IPK.tar.gz ../firmware/
 
     - name: Deliver package
       uses: actions/upload-artifact@v4
       with:
-        name: Original_IPK ${{ env.FILE_DATE }}
+        name: official_IPK ${{ env.FILE_DATE }}
         path: ./openwrt/bin/package/
 
     - name: Deliver firmware
       uses: actions/upload-artifact@v4
       with:
-        name: Original_firmware ${{ env.FILE_DATE }}
+        name: official_firmware ${{ env.FILE_DATE }}
         path: ./openwrt/bin/firmware/
 
     - name: Organize files
       id: organize
       run: |
-        cd openwrt/bin/firmware/
+        cd openwrt/bin/package/
+        tar -zcvf IPK.tar.gz *
+        mv -f IPK.tar.gz ../firmware/
+        cd ../firmware/
+        rm -rf packages
         mv -f ../package/IPK.tar.gz ../firmware/
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "{status}={success}" >> $GITHUB_OUTPUT
@@ -716,7 +723,7 @@ jobs:
     - name: Upload OpenWrt Firmware to Release
       uses: ncipollo/release-action@v1
       with:
-        name: x86-Original ${{ env.PRODUCT_NAME }}${{ env.DATE }}
+        name: x86-official ${{ env.PRODUCT_NAME }}${{ env.DATE }}
         tag: ${{ env.TAG_DATE }}
         artifacts: ${{ env.FIRMWARE }}/*
         allowUpdates: true
